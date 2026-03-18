@@ -2,6 +2,7 @@
 #define PLAYLIST_H
 
 #include "AudioStream.h"
+#include <stdexcept>
 
 class Playlist {
     private:
@@ -35,16 +36,21 @@ class Playlist {
         void showPlaylist(){
             cout << "---  Listing Your Playlist ---" << endl;
             for(int i = 0; i < m_count; i++){
-                cout << i << ".";
+                cout << i << ":";
                 m_list[i]->print();
             }
         }
         void swapSongs(int i1, int i2){
-            if(i1 >=0 && i1 < m_count && i2 >= 0 && i2 < m_count){
-                AudioStream *temp = m_list[i1];
-                m_list[i1] = m_list[i2];
-                m_list[i2] = temp;
+            if(m_count < 2){
+                cout << m_count;
+                throw logic_error("LOGIC ERROR: Playlist must contain at least 2 items");
             }
+            if((i1 >= m_count)||(i2 >= m_count)){
+                throw out_of_range("RANGE ERROR: Invalid swap values ");
+            }
+            AudioStream *temp = m_list[i1];
+            m_list[i1] = m_list[i2];
+            m_list[i2] = temp;
         }
 };
 

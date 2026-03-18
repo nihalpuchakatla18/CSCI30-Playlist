@@ -28,16 +28,9 @@ int main() {
     cin >> idx1 >> idx2;
 
     cout << "\nAttempting to swap index " << idx1 << " and " << idx2 << "..." << endl;
-    try{
-        myPlaylist.swapSongs(idx1, idx2);
-        myPlaylist.showPlaylist();
-    }
-    catch(const out_of_range& e){
-        cout << e.what() << idx1 << ", " << idx2 << endl;
-    }
-    catch(const logic_error& e){
-        cout << e.what();
-    }
+    myPlaylist.swapSongs(idx1, idx2); 
+        
+    myPlaylist.showPlaylist();
     
 
     return 0; 
