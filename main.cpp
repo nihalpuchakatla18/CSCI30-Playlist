@@ -13,31 +13,15 @@ int main() {
     //   When you are testing the logic_error you will need to temporarily modify the code below so that
     //   it does not add any streams to the playlist 
 
-    myPlaylist.addStream(new Song("Starman", "David Bowie", 250, "Ziggy Stardust"));
-    myPlaylist.addStream(new Song("Bohemian Rhapsody", "Queen", 354, "A Night at the Opera"));
-    myPlaylist.addStream(new Song("Hotel California", "Eagles", 391, "Hotel California"));
-    myPlaylist.addStream(new Song("Blinding Lights", "The Weeknd", 200, "After Hours"));
-    myPlaylist.addStream(new Podcast("The Daily", "Michael Barbaro", 1800, 1024, "NYT Staff"));
-    myPlaylist.addStream(new Podcast("Tech Overload", "Arun Maini", 1200, 45, "Tim Cook"));
-
-    int idx1, idx2;
+    myPlaylist.addSong("Starman", "David Bowie", 250, "Ziggy Stardust");
+    myPlaylist.addSong("Bohemian Rhapsody", "Queen", 354, "A Night at the Opera");
+    myPlaylist.addSong("Hotel California", "Eagles", 391, "Hotel California");
+    myPlaylist.addSong("Blinding Lights", "The Weeknd", 200, "After Hours");
+    myPlaylist.addPodcast("The Daily", "Michael Barbaro", 1800, 1024, "NYT Staff");
+    myPlaylist.addPodcast("Tech Overload", "Arun Maini", 1200, 45, "Tim Cook");
 
     myPlaylist.showPlaylist();
-
-    cout << "\nEnter two indices to swap: ";
-    cin >> idx1 >> idx2;
-
-    cout << "\nAttempting to swap index " << idx1 << " and " << idx2 << "..." << endl;
-    try{
-        myPlaylist.swapSongs(idx1, idx2);
-        myPlaylist.showPlaylist();
-    }
-    catch(const out_of_range& e){
-        cout << e.what() << idx1 << ", " << idx2 << endl;
-    }
-    catch(const logic_error& e){
-        cout << e.what();
-    }
+    myPlaylist.playAll();    
     
 
     return 0; 

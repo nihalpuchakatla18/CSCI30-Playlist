@@ -12,7 +12,8 @@ class Podcast : public AudioStream {
         Podcast(string t, string a, int d, int en, string g) : AudioStream(t, a, d), episodeNumber(en), guest(g){}
 
     void play() const override {
-        cout << "Now playing Podcast: " << title << " Episode #" << episodeNumber << ", featuring " << guest << "." << endl;
+        cout << "Now playing Podcast: " << title << " Ep #" << episodeNumber << "(Host: " << artist << ", Guest: " << guest << ")\n";
+        playBuffer();
     }    
 };
 

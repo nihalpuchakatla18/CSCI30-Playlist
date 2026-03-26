@@ -13,7 +13,8 @@ class Song : public AudioStream{
     Song(string t, string a, int d, string ab) : AudioStream(t, a, d), albumName(ab){}
 
     void play() const override{
-        cout << "Now playing Song: " << title << " by " << artist << " from the album " << albumName << "." << endl;
+        cout << "Now playing Song: " << title << " by " << artist << " [Album: " << albumName << "]" << endl;
+        playBuffer();    
     }
 };
 
