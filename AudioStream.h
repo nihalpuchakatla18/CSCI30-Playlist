@@ -17,7 +17,9 @@ class AudioStream{
     public:
         AudioStream(string t, string a, int d) : title(t), artist(a), duration(d), audioBuffer(d, t){}
 
-        virtual ~AudioStream(){}
+        virtual ~AudioStream(){
+            cout << "   Destroying the AudioStream : " << title << endl;
+        }
 
         void print() {
             cout << "The stream \"" << title << "\" is " << duration << " seconds, performed by " << artist << "." << endl;

@@ -5,45 +5,40 @@
 #include "Song.h"
 #include "Podcast.h"
 #include <stdexcept>
+#include <memory>
 
 class Playlist {
-    private:
-        AudioStream* m_list[100];
+    protected:
+        shared_ptr<AudioStream> m_list[100];
         int m_count;
 
     public:
-        Playlist() : m_count(0){
-            for(int i = 0; i < 100; i++){
-                m_list[i] = nullptr;
-            }
-        }
-        ~Playlist(){
-            for(int i = 0; i < 100; i++){
-                delete m_list[i];
-            }
+        Playlist() : m_count(0){}
+        virtual ~Playlist(){
+            cout << "Destroying the Playlist : \n";
         }
         
-        void addStream(AudioStream *s){
+        void addStream(shared_ptr<AudioStream> s){
             if(m_count < 100){
                 m_list[m_count] = s;
                 m_count++;
             }
         }
         
-        void addSong(string title, string artist, int duration, string album){
+        virtual void addSong(string title, string artist, int duration, string album){
             cout << "Adding Song: " << title << "..." << endl;
             try{
-                addStream(new Song(title, artist, duration, album));
+                addStream(make_shared<Song>(title, artist, duration, album));
             } catch (const runtime_error& e){
-                cout << " [Playlist]: Failed to add " << title << " -> " << e.what() << endl;
+                cout << "  [Playlist]: Failed to add " << title << " -> " << e.what() << endl;
             }
         }
         void addPodcast(string title, string host, int duration, int episode, string guest){
             cout << "Adding Podcast: " << title << "..." << endl;
             try{
-                addStream(new Podcast(title, host, duration, episode, guest));
+                addStream(make_shared<Podcast>(title, host, duration, episode, guest));
                 } catch (const runtime_error& e){
-                cout << "[Playlist]: Failed to add " << title << " -> " << e.what() << endl;
+                cout << "  [Playlist]: Failed to add " << title << " -> " << e.what() << endl;
             }
         }
 
@@ -55,7 +50,7 @@ class Playlist {
             }
         }
         void showPlaylist(){
-            cout << "\n---  Listing Your Playlist ---" << endl;
+            cout << "\n--- Listing Your Playlist ---" << endl;
             for(int i = 0; i < m_count; i++){
                 cout << i << ":";
                 m_list[i]->print();
@@ -69,7 +64,7 @@ class Playlist {
             if((i1 >= m_count)||(i2 >= m_count)){
                 throw out_of_range("RANGE ERROR: Invalid swap values ");
             }
-            AudioStream *temp = m_list[i1];
+            shared_ptr<AudioStream> temp = m_list[i1];
             m_list[i1] = m_list[i2];
             m_list[i2] = temp;
         }

@@ -16,11 +16,10 @@ class AudioBuffer{
         }
         ~AudioBuffer(){
             if(data != nullptr){
+                cout << "   Destroying the AudioBuffer\n";
                 freeAudioResource(data);
             }
         }
-        AudioBuffer(const AudioBuffer&) = delete;
-        AudioBuffer& operator = (const AudioBuffer&) = delete;
         void play() const{
             playAudioResource(data);
         }
